@@ -1,4 +1,4 @@
-# blog --
+# Vue Router - First App
 
 > A Vue.js project
 
