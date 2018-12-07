@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Blog from '@/components/Blog'
 import About from '@/components/About'
 import Contact from '@/components/Contact'
+import BlogDetail from '@/components/BlogDetail'
 
 Vue.use(Router)
 
@@ -11,7 +12,14 @@ export default new Router({
     {
       path: '/',
       name: 'Home',
-      component: Blog
+      component: Blog,
+      children: [
+        {
+          path: '/people/:id',
+          name: 'BlogDetail',
+          component: BlogDetail
+        }
+      ]
     },
     {
       path: '/about',

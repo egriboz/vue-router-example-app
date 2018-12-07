@@ -3,15 +3,17 @@
     <b-navbar toggleable="md" type="dark" variant="variant">
       <b-container fluid>
         <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
-
-        <b-navbar-brand href="/"><img src="http://viewers-guide.hbo.com/images/original531de918067e7.png" alt="Game of Thrones" width="160"></b-navbar-brand>
-
+        
+        <router-link :to="{ name: 'Home'}" class="navbar-brand">
+          <img src="http://viewers-guide.hbo.com/images/original531de918067e7.png" alt="Game of Thrones" width="160">
+        </router-link>
+        
         <b-collapse is-nav id="nav_collapse">
 
           <b-navbar-nav>
-            <router-link to="/" tag="li" active-class="active" exact><a class="nav-link">Home</a></router-link>
-            <router-link to="/about" tag="li" active-class="active" exact><a class="nav-link">About</a></router-link>
-            <router-link to="/contact" tag="li" active-class="active" exact><a class="nav-link">Contact</a></router-link>
+            <router-link :to="{ name: 'Home'}" tag="li" active-class="active" exact><a class="nav-link">Home</a></router-link>
+            <router-link :to="{ name: 'About'}" tag="li" active-class="active" exact><a class="nav-link">About</a></router-link>
+            <router-link :to="{ name: 'Contact'}" tag="li" active-class="active" exact><a class="nav-link">Contact</a></router-link>
           </b-navbar-nav>
 
           <!-- Right aligned nav items -->
@@ -32,7 +34,7 @@
             <b-nav-item-dropdown right>
               <!-- Using button-content slot -->
               <template slot="button-content">
-                <em>User</em>
+                User
               </template>
               <b-dropdown-item href="#">Profile</b-dropdown-item>
               <b-dropdown-item href="#">Signout</b-dropdown-item>
@@ -74,16 +76,18 @@ html {
 }
 body {
   /* Margin bottom by footer height */
-  margin-bottom: 60px;
+  margin-bottom: 200px;
 }
 .footer {
   position: absolute;
   bottom: 0;
+  padding: 20px;
   width: 100%;
   /* Set the fixed height of the footer here */
-  height: 60px;
-  line-height: 60px; /* Vertically center the text there */
-  background-color: #f5f5f5;
+  height: 200px;
+  background-color: #1e1e1e;
+  color: #fff;
+  font-size: 0.8rem;
 }
 
 
