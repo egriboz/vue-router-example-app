@@ -4,6 +4,8 @@ import Blog from '@/components/Blog'
 import About from '@/components/About'
 import Contact from '@/components/Contact'
 import BlogDetail from '@/components/BlogDetail'
+import Search from '@/components/Search'
+import PageNotFound from '@/components/PageNotFound'
 
 Vue.use(Router)
 
@@ -17,7 +19,8 @@ export default new Router({
         {
           path: '/people/:id',
           name: 'BlogDetail',
-          component: BlogDetail
+          component: BlogDetail,
+          props: true
         }
       ]
     },
@@ -31,6 +34,21 @@ export default new Router({
       path: '/contact',
       name: 'Contact',
       component: Contact
+    },
+    {
+      path: '/search',
+      name: 'Search',
+      component: Search
+    }
+    ,
+    {
+      path: '/404',
+      name: 'PageNotFound',
+      component: PageNotFound
+    },
+    {
+      path: '*',
+      redirect: { name: 'PageNotFound'}
     }
   ],
   mode: 'history'

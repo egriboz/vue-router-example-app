@@ -28,9 +28,15 @@
 import axios from 'axios'
 
 export default {
+  props: {
+    id: {
+      type: Number,
+      required: true
+    }
+  },
   data () {
     return {
-      id: this.$route.params.id,
+      //id: this.$route.params.id,
       entry: {}
     }
   },
