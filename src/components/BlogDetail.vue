@@ -3,7 +3,7 @@
     <b-container>
       <b-row>
         <b-col>
-          <router-link :to="{ name: 'Home' }" class="blog-detail__back-link"> < back</router-link>
+          <router-link :to="{ name: 'Home' }" class="blog-detail__back-link">back</router-link>
         </b-col>
       </b-row>
       <b-row>
