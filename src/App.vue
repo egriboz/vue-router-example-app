@@ -5,7 +5,7 @@
         <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
         
         <router-link :to="{ name: 'Home'}" class="navbar-brand">
-          <img src="http://viewers-guide.hbo.com/images/original531de918067e7.png" alt="Game of Thrones" width="160">
+          <img src="http://viewers-guide.hbo.com/images/original531de918067e7.png" alt="Game of Thrones" width="160"><!--{{ appName() }}-->
         </router-link>
         
         <b-collapse is-nav id="nav_collapse">
@@ -15,6 +15,8 @@
             <router-link :to="{ name: 'About'}" tag="li" active-class="active" exact><a class="nav-link">About</a></router-link>
             <router-link :to="{ name: 'Contact'}" tag="li" active-class="active" exact><a class="nav-link">Contact</a></router-link>
           </b-navbar-nav>
+          
+          <!--<b-button size="sm" class="my-2 my-sm-0" @click="onClick" type="submit">Change appName</b-button>-->
 
           <!-- Right aligned nav items -->
           <b-navbar-nav class="ml-auto">

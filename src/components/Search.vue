@@ -4,14 +4,15 @@
       <b-col cols="12">
         <h1>Search</h1>
       </b-col>
-      <b-col cols="12" sm="6" md="4" v-for="item in filteredResults" :key="item.id">
+      <b-col cols="12" sm="6" md="4" v-for="item in filteredResults(searchTerm)" :key="item.id">
         <router-link :to="{ name: 'BlogDetail', params: { id: item.id } }" class="blog-cell">
+          <!--index: getEntryIndex(item)-->
           <figure>
-            <img :src="item.img" :alt="item.imgAlt" class="blog-cell__img">
+            <img :src="item.img" :alt="item.title" class="blog-cell__img">
             <figcaption class="blog-cell__caption">
               <div class="blog-cell__content">
                 <h2 class="blog-cell__title">{{item.title}}</h2>
-                <div class="blog-cell__meta">by {{item.author}}</div>
+                <div class="blog-cell__meta">by {{item.house}}</div>
               </div>
             </figcaption>
           </figure>
@@ -22,33 +23,34 @@
 </template>
 
 <script>
-import axios from 'axios'
+import { mapGetters } from 'vuex'
 
 export default {
   data () {
     return {
-      searchTerm: this.$route.query.q,
-      entries: []
+      searchTerm: this.$route.query.q
     }
   },
+  computed: {
+    ...mapGetters(['filteredResults'])
+  },
+  // methods: {
+  //   getEntryIndex (entry) {
+  //     return this.entries.reduce((acc, curr, index) => {
+  //       if (curr.id === entry.id) {
+  //         acc = index
+  //       }
+  //       return acc
+  //     })
+  //   }
+  // },
   watch: {
     $route (to, from) {
       this.searchTerm = this.$route.query.q
     }
   },
-  computed: {
-    filteredResults () {
-      return this.entries.filter(entry => ~entry.title.toLowerCase().indexOf(this.searchTerm.toLowerCase()))
-    }
-  },
   created () {
-    axios.get(`http://localhost:3000/entries`)
-      .then(response => {
-        this.entries = response.data
-      })
-      .catch(e => {
-        console.error(`Error occured: ${e}`)
-      })
+    this.$store.dispatch('fetchEntries')
   }
 }
 </script>

@@ -6,10 +6,24 @@
           <h1>About</h1>
         </b-col>
         <b-col cols="12" sm="12" md="6">
-          <img class="about__img" :src="about.img" alt="">
+          <p v-if="!editMode">
+            <img class="about__img" :src="about.img" alt="">
+          </p>
+          <b-form-input v-else v-model="about.img" type="text" placeholder="Enter Url" class="input-text"></b-form-input>
+          
         </b-col>
         <b-col cols="12" sm="12" md="6">
-          <p>{{ about.text }}</p>
+          <p class="blog-detail__text" v-if="!editMode">
+            {{about.text}}
+          </p>
+          
+          <b-form-textarea v-else v-model="about.text" class="input-textarea" id="input-textarea" placeholder="Enter Text"></b-form-textarea>
+
+          <b-link href="" role="button" v-if="!editMode" variant="link" @click="onClick">Edit</b-link>
+          <div v-else>
+            <b-button variant="primary" @click="onSave">Save</b-button>
+            <b-button variant="link" @click="onCancel">Cancel</b-button>
+          </div>
         </b-col>
       </b-row>
     </b-container>
@@ -17,14 +31,46 @@
 </template>
 
 <script>
+import db from '../firebase'
+import toastr from 'toastr'
+
 export default {
   data () {
     return {
-      about:{
-          img: 'http://assets.viewers-guide.hbo.com/xlarge5339d767937c0.jpg',
-          text: 'Praesent euismod magna non elit efficitur, quis eleifend arcu mollis. Cras nisi lorem, dictum in egestas quis, venenatis id nisl. Pellentesque quis auctor diam. Morbi ut suscipit neque, vitae sollicitudin risus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec ut eros aliquam, pharetra neque lobortis, gravida nunc. Vivamus tincidunt dolor dui, vel rutrum elit lacinia in. Quisque scelerisque ut quam vitae rutrum. Maecenas id ligula id tortor iaculis faucibus quis et velit. Nulla sed condimentum quam, at ultricies urna. Cras in ex vel nunc viverra scelerisque. Aenean luctus porttitor tempor.',
-        }
+      about: {},
+      editMode: false
     }
+  },
+  methods: {
+    fetchEntry () {
+      db.ref(`about`).on('value', snap => {
+        this.about = snap.val()
+      })     
+    },
+    onClick (event) {
+      this.editMode = true
+    },
+    onSave (event) {
+      // değişiklikler firebase'e kaydet
+      db.ref(`about`).set(
+        this.about,
+        error => {
+          if (error) {
+            console.error(error)
+            toastr.error('Error happened!')
+          } else {
+            this.editMode = false
+            toastr.success('Entry saved successfully!')
+          }
+        }
+      )
+    },
+    onCancel (event) {
+      this.editMode = false
+    }
+  },
+  created () {
+    this.fetchEntry()
   }
 }
 </script>
@@ -35,5 +81,26 @@ export default {
     height: auto;
     display: block;
     margin-bottom: 1rem;
+  }
+  input.input-text,
+  input.input-text:focus {
+    font-size: .9rem;
+    padding: 5px 10px;
+    line-height: 1;
+    width: 100%;
+    height: auto;
+    display: block;
+    font-weight: 500;
+    margin-bottom: 20px;
+    color: #212529;
+  }
+  textarea.input-textarea,
+  textarea.input-textarea:focus {
+    display: block;
+    width: 100%;
+    height: 18rem;
+    margin-bottom: 20px;
+    padding: 5px 10px;
+    color: #212529;
   }
 </style>

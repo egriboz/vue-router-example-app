@@ -14,15 +14,22 @@ export default new Router({
     {
       path: '/',
       name: 'Home',
-      component: Blog,
-      children: [
-        {
-          path: '/people/:id',
-          name: 'BlogDetail',
-          component: BlogDetail,
-          props: true
-        }
-      ]
+      component: Blog
+      // ,
+      // children: [
+      //   {
+      //     path: '/people/:index',
+      //     name: 'BlogDetail',
+      //     component: BlogDetail,
+      //     props: true
+      //   }
+      // ]
+    },
+    {
+      path: '/people/:index',
+      name: 'BlogDetail',
+      component: BlogDetail,
+      props: true
     },
     {
       path: '/about',

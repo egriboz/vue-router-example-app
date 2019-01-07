@@ -8,8 +8,8 @@
         </b-col>
         <b-col cols="12">
           <carousel :mouse-drag="true" :autoplay="false" :per-page="3">
-            <slide v-for="item in entries" :key="item.id">
-              <router-link :to="{ name: 'BlogDetail', params: { id: item.id } }" class="blog-cell">
+            <slide v-for="(item, index) in entries" :key="item.id">
+              <router-link :to="{ name: 'BlogDetail', params: { index: index } }" class="blog-cell">
               <img :src="item.img" :alt="item.title" class="blog-cell__img">
               <h4 class="blog-cell__title">{{item.title}}</h4>
               </router-link>
@@ -28,8 +28,8 @@
         <b-col cols="12" >
           <h1 class="text-center">People</h1>
         </b-col>
-        <b-col cols="12" sm="4" md="3" v-for="item in entries" :key="item.id">
-          <router-link :to="{ name: 'BlogDetail', params: { id: item.id } }" class="blog-cell">
+        <b-col cols="12" sm="4" md="3" v-for="(item, index) in entries" :key="item.id">
+          <router-link :to="{ name: 'BlogDetail', params: { index: index } }" class="blog-cell">
             <figure>
               <img :src="item.img" :alt="item.title" class="blog-cell__img">
               <figcaption class="blog-cell__caption">
@@ -48,22 +48,28 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
+
+import { mapState } from 'vuex'
 
 export default {
-  data () {
-    return {
-      entries: []
-    }
+  computed: {
+    ...mapState(['entries'])
   },
+  // data () {
+  //   return {
+  //     entries: []
+  //   }
+  // },
   created () {
-    axios.get(`http://localhost:3000/entries`)
-      .then(response => {
-        this.entries = response.data
-      })
-      .catch(e => {
-        console.error(`Error occured: ${e}`)
-      })
+    this.$store.dispatch('fetchEntries')
+  //   axios.get(`http://localhost:3000/entries`)
+  //     .then(response => {
+  //       this.entries = response.data
+  //     })
+  //     .catch(e => {
+  //       console.error(`Error occured: ${e}`)
+  //     })
   }
 }
 </script>
