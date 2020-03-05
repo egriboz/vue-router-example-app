@@ -1,6 +1,3 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/b0de5c07-42d5-4e58-ab33-ebe02bcbf5e3/deploy-status)](https://app.netlify.com/sites/gameofthrones-vue/deploys)
-
-
 # Vue Router - First App
 
 > Basic App with Vue js
