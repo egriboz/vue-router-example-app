@@ -1,6 +1,6 @@
 # Vue Router - First App
 
-> Basic App with Vue js
+> Basic App with Vue.js
 
 ## Build Setup
 
